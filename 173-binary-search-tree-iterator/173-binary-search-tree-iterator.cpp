@@ -22,6 +22,10 @@ class BSTIterator {
     }
 public:
     BSTIterator(TreeNode* root) {
+        //store the inorder traversal in a vector
+        //take in iterator over the inorder vector
+        //at every next() call increment the iterator
+        //at hasNext() call check if iterator has reached the end of inorder or not
         inorderTraversal(root);
     }
     int next() {

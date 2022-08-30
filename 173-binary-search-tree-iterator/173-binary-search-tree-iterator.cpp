@@ -10,34 +10,35 @@
  * };
  */
 class BSTIterator {
-    vector<TreeNode*> inorder;
-    int i = -1;
-    void inorderTraversal(TreeNode* root){
-        if(root == NULL){
-            return;
+    stack<TreeNode*> st;
+    void pushInStack(TreeNode* root){
+        while(root!=NULL){
+            st.push(root);
+            root = root->left;
         }
-        inorderTraversal(root->left);
-        inorder.push_back(root);
-        inorderTraversal(root->right);
     }
 public:
     BSTIterator(TreeNode* root) {
-        //store the inorder traversal in a vector
-        //take in iterator over the inorder vector
-        //at every next() call increment the iterator
-        //at hasNext() call check if iterator has reached the end of inorder or not
-        inorderTraversal(root);
+        //use a stack for this problem
+        //initially push all elements to the left of root including root into the stack
+        //for next() call, return the value of stack's topmost element ans pop from stack, also push all the elements to the right stack's top element in the stack
+        //for hasNext call, check if stack is not empty
+        
+        pushInStack(root);
     }
+    
     int next() {
-        i++;
-        return inorder[i]->val;
+        TreeNode* curr = st.top();
+        st.pop();
+        int ans = curr->val;
+        
+        pushInStack(curr->right);
+        
+        return ans;
     }
     
     bool hasNext() {
-        if(i==inorder.size()-1){
-            return false;
-        }
-        return true;
+        return !st.empty();
     }
 };
 

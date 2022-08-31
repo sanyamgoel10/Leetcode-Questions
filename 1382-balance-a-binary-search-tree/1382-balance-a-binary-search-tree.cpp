@@ -10,21 +10,21 @@
  * };
  */
 class Solution {
-    void inorder(TreeNode* root, vector<int>& ans){
+    void inorder(TreeNode* root, vector<TreeNode*>& ans){
         if(!root)
             return;
         inorder(root->left, ans);
-        ans.push_back(root->val);
+        ans.push_back(root);
         inorder(root->right, ans);
     }
     
-    TreeNode* inorderToBST(int l, int r, vector<int>& inorderTraversal){
+    TreeNode* inorderToBST(int l, int r, vector<TreeNode*>& inorderTraversal){
         if(r<l)
             return NULL;
         
         int mid = (l+r)/2;
         
-        TreeNode* root = new TreeNode(inorderTraversal[mid]);
+        TreeNode* root = inorderTraversal[mid];
         
         root->left = inorderToBST(l,mid-1,inorderTraversal);
         root->right = inorderToBST(mid+1,r,inorderTraversal);
@@ -40,7 +40,7 @@ public:
         //TC -> O(n)
         //SC -> O(n)
         
-        vector<int> in;
+        vector<TreeNode*> in;
         inorder(root, in);
         
         return inorderToBST(0, in.size()-1, in);

@@ -3,6 +3,13 @@ class KthLargest {
     int kth;
 public:
     KthLargest(int k, vector<int>& nums) {
+        //create a min heap to store elements
+        //push elements of nums in minheap until kth
+        //if minheap size is less than k, push into the heap
+        //if minheap is of size k, then check if currrent element is less or greater than top
+        //if top element > val -> don't push val to the heap
+        //else -> replace top element of heap with val
+        
         kth = k;
         for(auto x : nums){
             add(x);

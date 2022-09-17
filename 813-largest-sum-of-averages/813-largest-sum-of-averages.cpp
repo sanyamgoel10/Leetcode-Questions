@@ -1,24 +1,4 @@
 class Solution {
-    double solve(int ind, int k, vector<int>& nums, int n, vector<vector<double>>& dp){
-        if(ind>=n){
-            return 0;
-        }
-        if(k==0){
-            return INT_MIN;
-        }
-        if(dp[ind][k]!=-1){
-            return dp[ind][k];
-        }
-        
-        double ans = INT_MIN;
-        double currSum = 0;
-        for(int i=ind;i<n;i++){
-            currSum += nums[i];
-            double currAvg = currSum / (i-ind+1);
-            ans = max(ans, currAvg + solve(i+1, k-1, nums, n, dp));
-        }
-        return dp[ind][k]=ans;
-    }
 public:
     double largestSumOfAverages(vector<int>& nums, int k) {
         //take two parameters ind and k
@@ -28,7 +8,24 @@ public:
         
         int n = nums.size();
         
-        vector<vector<double>> dp(n, vector<double>(k+1, -1));
-        return solve(0, k, nums, n, dp);
+        vector<vector<double>> dp(n+1, vector<double>(k+1, 0));
+        for(int i=0;i<n;i++){
+            dp[i][0] = INT_MIN;
+        }
+        
+        for(int t=1; t<=k; t++){
+            for(int ind=0;ind<n;ind++){
+                double ans = INT_MIN;
+                double currSum = 0;
+                for(int i=ind;i<n;i++){
+                    currSum += nums[i];
+                    double currAvg = currSum / (i-ind+1);
+                    ans = max(ans, currAvg + dp[i+1][t-1]);
+                }
+                dp[ind][t] = ans;
+            }
+        }
+        
+        return dp[0][k];
     }
 };

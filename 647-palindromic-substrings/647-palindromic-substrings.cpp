@@ -13,7 +13,8 @@ public:
     int countSubstrings(string s) {
         int n = s.size();
         
-        vector<int> dp(n+1, 0);
+        int next = 0;
+        int curr = 0;
         
         for(int ind=n-1;ind>=0;ind--){
             int ans = 0;
@@ -22,8 +23,9 @@ public:
                     ans++;
                 }
             }
-            dp[ind] = ans + dp[ind+1];
+            curr = ans + next;
+            next = curr;
         }
-        return dp[0];
+        return next;
     }
 };

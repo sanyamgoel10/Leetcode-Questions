@@ -1,6 +1,6 @@
 class MyCircularQueue {
     int k;
-    queue<int> q;
+    vector<int> q;
 public:
     MyCircularQueue(int k) {
         this->k = k;
@@ -10,48 +10,43 @@ public:
         if(isFull()){
             return false;
         }
-        q.push(value);
+        
+        q.push_back(value);
         return true;
     }
     
     bool deQueue() {
-        if(q.empty()){
+        if(isEmpty()){
             return false;
         }
-        q.pop();
+        
+        for(int i=0;i<q.size()-1;i++){
+            q[i] = q[i+1];
+        }
+        q.pop_back();
         return true;
     }
     
     int Front() {
-        if(q.empty()){
+        if(isEmpty()){
             return -1;
         }
-        return q.front();
+        return q[0];
     }
     
     int Rear() {
-        if(q.empty()){
+        if(isEmpty()){
             return -1;
         }
-        int n = q.size();
-        for(int i=0;i<n-1;i++){
-            q.push(q.front());
-            q.pop();
-        }
-        int x = q.front();
-        q.push(q.front());
-        q.pop();
-        return x;
+        return q[q.size()-1];
     }
     
     bool isEmpty() {
-        return q.empty();
+        return q.size()==0;
     }
     
     bool isFull() {
-        if(q.size()==k)
-            return true;
-        return false;
+        return q.size()==k;
     }
 };
 

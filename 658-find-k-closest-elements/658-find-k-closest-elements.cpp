@@ -19,11 +19,11 @@ public:
                 int a = pq1.top();
                 int b = pq2.top();
                 if(abs(a-x)==abs(b-x)){
-                    ans.push_back(a);
+                    ans.insert(ans.begin(),a);
                     pq1.pop();
                 }
                 else if(abs(a-x)<abs(b-x)){
-                    ans.push_back(a);
+                    ans.insert(ans.begin(),a);
                     pq1.pop();
                 }
                 else{
@@ -32,7 +32,7 @@ public:
                 }
             }
             else if(!pq1.empty()){
-                ans.push_back(pq1.top());
+                ans.insert(ans.begin(),pq1.top());
                 pq1.pop();
             }
             else if(!pq2.empty()){
@@ -42,7 +42,7 @@ public:
             k--;
         }
         
-        sort(ans.begin(), ans.end());
+        // sort(ans.begin(), ans.end());
         
         return ans;
     }

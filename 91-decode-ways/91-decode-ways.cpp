@@ -3,21 +3,25 @@ public:
     int numDecodings(string s) {
         int n = s.size();
         
-        vector<int> dp(n+1, 0);
-        
-        dp[n] = 1;
+        int nextNext = 1;
+        int next = 0;
         
         for(int i=n-1;i>=0;i--){
+            int curr;
             if(s[i]=='0'){
-                continue;
+                curr = 0;
             }
-            int ans = dp[i+1];
+            else{
+                curr = nextNext;
+            }
+            
             if(i<n-1 && (s[i]=='1' || (s[i]=='2' && s[i+1]<'7'))){
-                ans += dp[i+2];
+                curr += next;
             }
-            dp[i] = ans;
+            next = nextNext;
+            nextNext = curr;
         }
         
-        return dp[0];
+        return nextNext;
     }
 };

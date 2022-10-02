@@ -21,7 +21,23 @@ class Solution {
     }
 public:
     int numRollsToTarget(int n, int k, int target) {
-        vector<vector<int>> dp(n+1, vector<int>(target+1, -1));
-        return solve(n, k, target, dp);
+        vector<vector<int>> dp(n+1, vector<int>(target+1, 0));
+        
+        dp[0][0] = 1;
+        
+        for(int ind=1;ind<=n;ind++){
+            for(int j=1;j<=target;j++){
+                for(int i=1;i<=k;i++){
+                    if(i<=j){
+                        dp[ind][j] = (dp[ind][j] + dp[ind-1][j-i])%mod;
+                    }
+                    else{
+                        dp[ind][j] = (dp[ind][j] + 0)%mod;
+                    }
+                }
+            }
+            
+        }
+        return dp[n][target];
     }
 };

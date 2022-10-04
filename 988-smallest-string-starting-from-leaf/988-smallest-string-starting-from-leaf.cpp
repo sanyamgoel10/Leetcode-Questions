@@ -10,35 +10,25 @@
  * };
  */
 class Solution {
-    void solve(string& temp, string& ans, TreeNode* root){
+    void solve(string temp, string& ans, TreeNode* root){
         if(root==NULL){
             return;
         }
-        if(root->left==NULL && root->right==NULL){
-            temp.insert(temp.begin()+0, root->val + 'a');
-            
-            ans = min(ans, temp);
-            // cout<<temp<<" ";
-            
-            temp = temp.substr(1, temp.size()-1);
+        if(root->left==NULL && root->right==NULL){            
+            ans = min(ans, char(root->val+'a')+temp);
             return;
         }
         
-        temp.insert(temp.begin()+0, root->val + 'a');
-        
-        solve(temp, ans, root->left);
-        solve(temp, ans, root->right);
-        
-        temp = temp.substr(1, temp.size()-1);
+        solve(char(root->val+'a')+temp, ans, root->left);
+        solve(char(root->val+'a')+temp, ans, root->right);
     }
 public:
     string smallestFromLeaf(TreeNode* root) {
-        string ans = "zzzzzzzzzzzzzzzzzzzzzzzzzz";
+        string ans = "~";   //lexicologically maximum string
         string temp = "";
         
         solve(temp, ans,root);
         
-        cout<<endl;
         return ans;
     }
 };

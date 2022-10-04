@@ -10,29 +10,31 @@
  * };
  */
 class Solution {
-    void solve(string& temp, int& ans, TreeNode* root){
+    void solve(int& temp, int& ans, TreeNode* root){
         if(root==NULL){
             return;
         }
         if(root->left==NULL && root->right==NULL){
-            temp += (root->val + '0');
-            ans += stoi(temp);
-            temp.pop_back();
+            temp *= 10;
+            temp += root->val;
+            ans += temp;
+            temp /= 10;
             return;
         }
         
-        temp += (root->val + '0');
+        temp *= 10;
+        temp += root->val;
         
         solve(temp, ans, root->left);
         solve(temp, ans, root->right);
         
-        temp.pop_back();
+        temp /= 10;
     }
 public:
     int sumNumbers(TreeNode* root) {
         int ans = 0;
-        string temp = "";
-        solve(temp, ans,root);
+        int temp = 0;
+        solve(temp, ans, root);
         
         return ans;
     }

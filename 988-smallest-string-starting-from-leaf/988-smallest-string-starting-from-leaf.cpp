@@ -15,23 +15,21 @@ class Solution {
             return;
         }
         if(root->left==NULL && root->right==NULL){
-            temp += (root->val + 'a');
-            reverse(temp.begin(), temp.end());
+            temp.insert(temp.begin()+0, root->val + 'a');
             
             ans = min(ans, temp);
-            cout<<temp<<" ";
+            // cout<<temp<<" ";
             
-            reverse(temp.begin(), temp.end());
-            temp.pop_back();
+            temp = temp.substr(1, temp.size()-1);
             return;
         }
         
-        temp += (root->val + 'a');
+        temp.insert(temp.begin()+0, root->val + 'a');
         
         solve(temp, ans, root->left);
         solve(temp, ans, root->right);
         
-        temp.pop_back();
+        temp = temp.substr(1, temp.size()-1);
     }
 public:
     string smallestFromLeaf(TreeNode* root) {

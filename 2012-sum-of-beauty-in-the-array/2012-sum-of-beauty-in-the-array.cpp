@@ -7,13 +7,13 @@ public:
         vector<int> maxTillNow(n);
         vector<int> minTillEnd(n);
         
-        int maxi = INT_MIN;     //maximum in prefix array
-        int mini = INT_MAX;     //minimum in suffix array
-        for(int i=0;i<n;i++){ 
+        int maxi = nums[0];     //maximum in prefix array
+        int mini = nums[n-1];     //minimum in suffix array
+        for(int i=1;i<n-1;i++){ 
             maxTillNow[i] = maxi;
             maxi = max(maxi, nums[i]);
         }
-        for(int i=n-1;i>=0;i--){
+        for(int i=n-2;i>0;i--){
             minTillEnd[i] = mini;
             mini = min(mini, nums[i]);
         }

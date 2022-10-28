@@ -4,18 +4,12 @@ public:
         int n = strs.size();
         vector<vector<string>> ans;
         
-        map<vector<int>,vector<string>> hmap;
+        unordered_map<string,vector<string>> hmap;
         for(auto x : strs){
-            vector<int> alpha(26);
-            for(auto y : x){
-                alpha[y-'a']++;
-            }
-            if(hmap.count(alpha)){
-                hmap[alpha].push_back(x);
-            }
-            else{
-                hmap[alpha] = {x};
-            }
+            string alpha = x;
+            sort(alpha.begin(),alpha.end());
+            
+            hmap[alpha].push_back(x);
         }
         for(auto x : hmap){
             ans.push_back(x.second);

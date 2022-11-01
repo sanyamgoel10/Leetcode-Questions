@@ -1,20 +1,5 @@
 class Solution {
-    int solve(int row, int col, vector<vector<int>>& grid, int& m, int& n){
-        // if(grid[row][col]==1 && (col==n-1 || grid[row][col+1]==-1)){
-        //     return -1;
-        // }
-        // if(grid[row][col]==-1 && (col==0 || grid[row][col-1]==1)){
-        //     return -1;
-        // }
-        // if(row==m-1){
-        //     if(grid[row][col]==1){
-        //         return col+1;
-        //     }
-        //     else{
-        //         return col-1;
-        //     }
-        // }
-        
+    int solve(int row, int col, vector<vector<int>>& grid, int& m, int& n, vector<vector<int>>& dp){
         if((col==0 && grid[row][col]==-1) || (col==n-1 && grid[row][col]==1)){
             return -1;
         }
@@ -29,12 +14,15 @@ class Solution {
                 return col-1;
             }
         }
+        if(dp[row][col]!=-1){
+            return dp[row][col];
+        }
         
         if(grid[row][col]==1 && grid[row][col+1]==1){
-            return solve(row+1,col+1,grid,m,n);
+            return dp[row][col]=solve(row+1,col+1,grid,m,n,dp);
         }
         else{
-            return solve(row+1,col-1,grid,m,n);
+            return dp[row][col]=solve(row+1,col-1,grid,m,n,dp);
         }
     }
 public:
@@ -48,7 +36,8 @@ public:
         // -1 -> right to left
         
         for(int i=0;i<n;i++){
-            ans[i] = solve(0,i,grid,m,n);
+            vector<vector<int>> dp(m,vector<int>(n,-1));
+            ans[i] = solve(0,i,grid,m,n,dp);
         }
         
         return ans;

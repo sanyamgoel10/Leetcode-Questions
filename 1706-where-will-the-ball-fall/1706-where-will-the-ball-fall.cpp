@@ -33,8 +33,6 @@ public:
         // -1 -> right to left
         
         for(int i=0;i<n;i++){
-            if(solve(0,i,grid,m,n)==-1)
-                continue;
             ans[i] = solve(0,i,grid,m,n);
         }
         

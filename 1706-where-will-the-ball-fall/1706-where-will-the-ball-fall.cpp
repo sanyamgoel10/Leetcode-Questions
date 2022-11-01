@@ -27,13 +27,15 @@ public:
         int m = grid.size();
         int n = grid[0].size();
         
-        vector<int> ans;
+        vector<int> ans(n, -1);
         
         // 1 -> left to right
         // -1 -> right to left
         
         for(int i=0;i<n;i++){
-            ans.push_back(solve(0,i,grid,m,n));
+            if(solve(0,i,grid,m,n)==-1)
+                continue;
+            ans[i] = solve(0,i,grid,m,n);
         }
         
         return ans;

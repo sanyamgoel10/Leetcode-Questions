@@ -1,16 +1,25 @@
 class Solution {
-    unordered_map<int,vector<int>> hmap;
+    int n;
+    vector<int> arr;
 public:
     Solution(vector<int>& nums) {
-        for(int i=0;i<nums.size();i++){
-            hmap[nums[i]].push_back(i);
-        }
+        this->n = nums.size();
+        this->arr = nums;
     }
     
     int pick(int target) {
-        vector<int> temp = hmap[target];
-        int n = temp.size();
-        return hmap[target][rand()%n];
+        int ans;
+        while(true){
+            //find any index in the array using rand()
+            int ind = rand()%n;
+            //if that index value  is equal to target, return
+            //else go onn
+            if(arr[ind]==target){
+                ans = ind;
+                break;
+            }
+        }
+        return ans;
     }
 };
 

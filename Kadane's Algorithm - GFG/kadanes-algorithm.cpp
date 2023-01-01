@@ -16,10 +16,13 @@ class Solution{
         
         for(int i=0;i<n;i++){
             max_ending_here += arr[i];
+            // at every point check if current_maximum is greater than global_max
             if(max_ending_here > max_so_far){
+                //update global maximum if current_maximum is found to be greater than it
                 max_so_far = max_ending_here;
             }
             if(max_ending_here < 0){
+                //update current_maximum if it if found to be smaller than it initialized value
                 max_ending_here = 0;
             }
         }

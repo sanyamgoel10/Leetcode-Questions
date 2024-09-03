@@ -1,37 +1,20 @@
 class Solution {
-public:  
+public:
     int removeDuplicates(vector<int>& nums) {
-        int n=nums.size();
-        //  ONE APPROACH IS ALSO TO CREATE A TEMP VECTOR AND ADD UNIQUE VALUES FROM NUMS TO IT AND RETURN ITS SIZE
+        int n = nums.size();
         
-//         BRUTE FORCE APPROACH
-//         int j=1;
-//         for(int i=1;i<n;i++){
-//             if(nums[i]!=nums[i-1]){
-//                 count++;
-//                 nums[j]=nums[i];
-//                 j++;
-//             }
-//         }
+        set<int> s;
         
-//         return j;
-        
-        //  TWO POINTER APPROACH
-        if(n==0 || n==1){
-            return n;
+        for(int i=0;i<n;i++){
+            s.insert(nums[i]);
         }
-        int l=0;
-        int r=1;
-        while(l<r && r<n){
-            if(nums[l]==nums[r]){
-                r++;
-            }
-            else{
-                l++;
-                nums[l]=nums[r];
-                r++;
-            }
+        
+        int i=0;
+        for(auto& x : s){
+            nums[i] = x;
+            i++;
         }
-        return l+1;
+        
+        return s.size();
     }
 };
